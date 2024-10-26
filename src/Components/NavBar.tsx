@@ -1,33 +1,29 @@
 import PokemonCard from "./PokemonCard";
 
+interface PokemonCard {
+    pokemon: {
+      name: string;
+      imgSrc?: string;
+    };
+}
+  
 interface NavBar {
   pokemonIndex: number;
   setPokemonIndex: (index: number) => void;
   pokemonList: [];
+  button: (index: number) => void;
 }
-function NavBar({ pokemonIndex, setPokemonIndex, pokemonList }) {
-  const precedent = () => {
-    if (pokemonIndex > 0) {
-      setPokemonIndex(pokemonIndex - 1);
-    }
-  };
-
-  const suivant = () => {
-    if (pokemonIndex < pokemonList.length - 1) {
-      setPokemonIndex(pokemonIndex + 1);
-    }
-  };
+function NavBar({ pokemonIndex, setPokemonIndex, pokemonList } : NavBar) {
 
   return (
     <div>
-      <button type="button" onClick={precedent}>
-        Précédent
-      </button>
-      <button type="button" onClick={suivant}>
-        Suivant
-      </button>
-    </div>
-  );
+        {pokemonList.map((pokemon, index) => (
+            <button key={index} onClick={() => setPokemonIndex(index)}>
+              {pokemon.name}
+            </button>
+          ))}
+        </div>
+      );
 }
 
 export default NavBar;
